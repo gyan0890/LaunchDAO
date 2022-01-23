@@ -13,25 +13,24 @@ function App() {
   const [state, dispatch] = useContext(AppContext);
   const [wallet, setwallet] = useState(null)
   const [authorized, setauthorized] = useState(null);
+  const [input, setInput] = useState('');
   const handleClick = async () => {
     try {
-      wallet = await WalletService.connectwallet();
-      debugger;
-      setwallet(wallet)
-      const object = {
-        type: AppActions.SETWALLET,
-        payload: wallet
-      }
-      dispatch(object)
+      window.dao = {}
+      const data = await WalletService.connnectWalletState();
+      setwallet(data)
+      dispatch(data)
     } catch (error) {
       alert("Something went wrong")
       console.error(error)
     }
   }
 
-  const checkaddress = () => {
-    const val = document.getElementById("inputid").innerText;
-    window.dao.selectedaddress = val;
+  const checkaddress = async () => {
+    debugger;
+    window.dao.selectedaddress = input;
+    const isvalidaddress = await WalletService.getENS(input);
+
     debugger;
   }
 
@@ -50,8 +49,8 @@ function App() {
   const inputBoxwithSubmit = () => {
     return (
       <div>
-        <input id='inputid' placeholder='enter wallet address'></input>
-        <button className='btn btn-secondary'>Submit</button>
+        <input value={input} onInput={e => setInput(e.target.value)} />
+        <button className='btn btn-secondary' onClick={checkaddress} >Submit</button>
       </div>
     )
   }
