@@ -55,7 +55,7 @@ function App() {
     debugger;
     await DaoCreationService.deployDao(name, symbol, desc, totalSupply);
     debugger;
-    await DaoCreationService.getDaoAddress();
+    // await DaoCreationService.getDaoAddress();
     setDaoLaunched(true);
   }
 

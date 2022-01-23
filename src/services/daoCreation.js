@@ -29,11 +29,24 @@ export default class DaoCreationService {
         };
 
         try {
-            const txHash = await window.ethereum.request({
-                method: "eth_sendTransaction",
-                params: [transactionParameters],
+            // const txHash = await window.ethereum.request({
+            //     method: "eth_sendTransaction",
+            //     params: [transactionParameters],
+            // })
+            const me = this;
+            web3service.eth.sendTransaction(transactionParameters)
+            .once('sending', function(payload){ console.log(payload) })
+            .once('sent', function(payload){ console.log(payload) })
+            .once('transactionHash', function(hash){ console.log(hash) })
+            .once('receipt', function(receipt){ console.log(receipt) })
+            .on('confirmation', function(confNumber, receipt, latestBlockHash){ console.log(latestBlockHash) })
+            .on('error', function(error){ console.log(error) })
+            .then(async function(receipt){
+                alert("Receipt generated" + receipt);
+                await me.getDaoAddress();
+                debugger;
             });
-            alert("Wohoo! Setting up your DAO for deployment now" + txHash)
+            alert("Wohoo! Setting up your DAO for deployment now")
         } catch (error) {
             debugger;
         }
