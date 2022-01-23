@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import WalletService from './services/wallet';
 import { AppContext, AppContextProvider } from './states/appcontext';
 import { AppActions } from './states/actions';
@@ -11,10 +11,13 @@ import Web3 from "web3";
 function App() {
 
   const [state, dispatch] = useContext(AppContext);
-  const [wallet, setwallet] = useState(null)
+  let [wallet, setwallet] = useState(null)
+  const [address, setAddress] = useState("0x0");
+
   const  handleClick = async() => {
+    window.dao = {};
     try {
-      const wallet = await WalletService.connectwallet();
+      wallet = await WalletService.connectwallet();
       debugger;
       setwallet(wallet)
       const object = {
@@ -27,11 +30,34 @@ function App() {
       console.error(error)
     }
   }
+
+  const handleSubmit = async(event) => {
+    event.preventDefault();
+    const ensObject = await WalletService.connectwallet(address);
+    console.log(ensObject)
+    debugger;
+    console.log("ENS Address is:", ensObject);
+    alert(`DNS Address is ${address}`)
+  }
+
   return (
     <div className="App">
     <button onClick={handleClick}>
       CONNECT WALLET 
     </button>
+
+    <form onSubmit={handleSubmit}>
+      <label>
+        Enter your ENS Address
+        <input
+          type="text"
+          value={address}
+          onChange={e => setAddress(e.target.value)}
+        />
+      </label>
+      <input type="submit" value="Submit" />
+    </form>
+
     </div>
 
   );
