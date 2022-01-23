@@ -7,6 +7,7 @@ import { AppContext, AppContextProvider } from './states/appcontext';
 import { AppActions } from './states/actions';
 import { compact } from 'lodash';
 import Web3 from "web3";
+import LaunchDaoPage from './Launchdao';
 
 function App() {
 
@@ -37,14 +38,12 @@ function App() {
 
 
   const launchdoaEvent = () => {
-    alert("launching")
+    setDaoLaunched(true);
   }
 
   const launchDaoHtml = () => {
     return (
-      <h1>
-        here put the html for launchDaoHtml
-      </h1>
+      <LaunchDaoPage></LaunchDaoPage>
     )
   }
   const connectwallet = () => {
@@ -67,7 +66,7 @@ function App() {
   const launchdoa = () => {
     return (
       <div className='jumbtron'>
-        <button className='btn'>Launch Dao</button>
+        <button className='btn' onClick={launchdoaEvent}>Launch Dao</button>
       </div>
     )
   }
