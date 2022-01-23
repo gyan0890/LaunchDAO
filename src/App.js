@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import WalletService from './services/wallet';
 import { AppContext, AppContextProvider } from './states/appcontext';
 import { AppActions } from './states/actions';
@@ -15,7 +15,7 @@ function App() {
   const [authorized, setauthorized] = useState(null);
   const handleClick = async () => {
     try {
-      const wallet = await WalletService.connectwallet();
+      wallet = await WalletService.connectwallet();
       debugger;
       setwallet(wallet)
       const object = {
