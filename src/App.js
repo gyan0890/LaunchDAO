@@ -14,6 +14,7 @@ function App() {
   const [wallet, setwallet] = useState(null)
   const [authorized, setauthorized] = useState(null);
   const [input, setInput] = useState('');
+  const [daolaunched, setDaoLaunched] = useState(false);
   const handleClick = async () => {
     try {
       window.dao = {}
@@ -27,16 +28,24 @@ function App() {
   }
 
   const checkaddress = async () => {
-    debugger;
     window.dao.selectedaddress = input;
     const isvalidaddress = await WalletService.getENS(input);
-
-    debugger;
+    if (isvalidaddress == wallet.payload) {
+      setauthorized(true)
+    }
   }
 
 
   const launchdoaEvent = () => {
     alert("launching")
+  }
+
+  const launchDaoHtml = () => {
+    return (
+      <h1>
+        here put the html for launchDaoHtml
+      </h1>
+    )
   }
   const connectwallet = () => {
     return (
@@ -72,6 +81,9 @@ function App() {
     }
     if (wallet && authorized) {
       return launchdoa();
+    }
+    if (wallet && authorized && daolaunched) {
+      return launchDaoHtml();
     }
   }
   return (
