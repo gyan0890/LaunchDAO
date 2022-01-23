@@ -12,7 +12,8 @@ function App() {
 
   const [state, dispatch] = useContext(AppContext);
   const [wallet, setwallet] = useState(null)
-  const  handleClick = async() => {
+  const [authorized, setauthorized] = useState(null);
+  const handleClick = async () => {
     try {
       const wallet = await WalletService.connectwallet();
       debugger;
@@ -27,11 +28,56 @@ function App() {
       console.error(error)
     }
   }
+
+  const checkaddress = () => {
+    const val = document.getElementById("inputid").innerText;
+    window.dao.selectedaddress = val;
+    debugger;
+  }
+
+
+  const launchdoaEvent = () => {
+    alert("launching")
+  }
+  const connectwallet = () => {
+    return (
+      <button className="btn btn-primary" onClick={handleClick}>
+        CONNECT WALLET
+      </button>
+    )
+  }
+
+  const inputBoxwithSubmit = () => {
+    return (
+      <div>
+        <input id='inputid' placeholder='enter wallet address'></input>
+        <button className='btn btn-secondary'>Submit</button>
+      </div>
+    )
+  }
+
+  const launchdoa = () => {
+    return (
+      <div className='jumbtron'>
+        <button className='btn'>Launch Dao</button>
+      </div>
+    )
+  }
+
+  const gethtml = () => {
+    if (!wallet) {
+      return connectwallet();
+    }
+    if (wallet && !authorized) {
+      return inputBoxwithSubmit()
+    }
+    if (wallet && authorized) {
+      return launchdoa();
+    }
+  }
   return (
-    <div className="App">
-    <button onClick={handleClick}>
-      CONNECT WALLET 
-    </button>
+    <div className="containe jumbotron">
+      {gethtml()}
     </div>
 
   );
