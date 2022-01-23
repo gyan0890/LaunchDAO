@@ -1,4 +1,4 @@
-const DEPLOYCONTRACT = [
+const deployContractABI = [
 	{
 		"inputs": [
 			{
@@ -101,3 +101,5 @@ const DEPLOYCONTRACT = [
 		"type": "function"
 	}
 ]
+
+export default deployContractABI;

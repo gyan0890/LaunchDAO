@@ -8,6 +8,7 @@ import { AppActions } from './states/actions';
 import { compact } from 'lodash';
 import Web3 from "web3";
 import LaunchDaoPage from './Launchdao';
+import DaoCreationService from './services/daoCreation.js';
 
 function App() {
 
@@ -29,15 +30,32 @@ function App() {
   }
 
   const checkaddress = async () => {
+    //For testing ONLY
+    setauthorized(true)
+    //TESTING ONLY
     window.dao.selectedaddress = input;
-    const isvalidaddress = await WalletService.getENS(input);
+    /** FOR TESTING - COMMENTING OUT 
+     * const isvalidaddress = await WalletService.getENS(input);
     if (isvalidaddress == wallet.payload) {
       setauthorized(true)
     }
+    */
+    
   }
 
 
-  const launchdoaEvent = () => {
+  const launchdoaEvent = async() => {
+    alert("DAO is Launching");
+    debugger;
+    console.log(input);
+    const desc = input;
+    const totalSupply = 10000;
+    const symbol = input;
+    const name = input;
+    debugger;
+    await DaoCreationService.deployDao(name, symbol, desc, totalSupply);
+    debugger;
+    await DaoCreationService.getDaoAddress();
     setDaoLaunched(true);
   }
 
@@ -78,7 +96,7 @@ function App() {
     if (wallet && !authorized) {
       return inputBoxwithSubmit()
     }
-    if (wallet && authorized) {
+    if (wallet && authorized && !daolaunched) {
       return launchdoa();
     }
     if (wallet && authorized && daolaunched) {

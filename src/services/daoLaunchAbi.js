@@ -1,4 +1,4 @@
-const DAOLAUNCH = [
+const daoLaunchABI = [
 	{
 		"inputs": [
 			{
@@ -350,3 +350,5 @@ const DAOLAUNCH = [
 		"type": "function"
 	}
 ]
+
+export default daoLaunchABI;

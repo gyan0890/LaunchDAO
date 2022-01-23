@@ -22,6 +22,11 @@ export default class WalletService {
         }
     }
 
+
+    static getWeb3Object() {
+        return new Web3(Web3.givenProvider);
+    }
+
     // static async getENS(address) {
     //     const resolveAddress = await window.dao.provider.getResolver(address);
     //     return resolveAddress;

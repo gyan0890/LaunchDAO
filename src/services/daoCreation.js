@@ -1,24 +1,25 @@
-import DEPLOYCONTRACT from "./deployContractAbi";
-import DAOLAUNCH from "./daoLaunchAbi";
+import deployContractABI from "./deployContractAbi";
+import daoLaunchABI from "./daoLaunchAbi";
 import web3 from "web3";
 import WalletService from "./wallet";
 
-import * as BN from "bn.js";
+let parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924";
+
 export default class DaoCreationService {
     //Contract used to deploy the token contract
-    parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924";
 
     static async getDaoAddress() {
-        const web3service = WalletService.getWet3Object();
-        window.contract = await new web3service.eth.Contract(DEPLOYCONTRACT, parentContract);
-        const tokenAddress =  await window.contract.methods.getContract().call();
+        const web3service = WalletService.getWeb3Object();
+        window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
+        const tokenAddress =  await window.contract.methods.getContract().call({from: window.ethereum.selectedAddress});
         window.dao.tokenAddress = tokenAddress;
-        mintToken(tokenAddress);
+        await this.mintToken(tokenAddress);
     };
 
-    static async deployToken(name, symbol, description, totalSupply) {
-        const web3service = WalletService.getWet3Object();
-        window.contract = await new web3service.eth.Contract(DEPLOYCONTRACT, parentContract);
+    static async deployDao(name, symbol, description, totalSupply) {
+        debugger;
+        const web3service = WalletService.getWeb3Object();
+        window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
         const transactionParameters = {
             to: parentContract, // Required except during contract publications.
             from: window.ethereum.selectedAddress, // must match user's active address.
@@ -40,8 +41,9 @@ export default class DaoCreationService {
     }
 
     static async mintToken(tokenContract) {
-        const web3service = WalletService.getWet3Object();
-        window.contract = await new web3service.eth.Contract(DAOLAUNCH, tokenContract);
+        debugger;
+        const web3service = WalletService.getWeb3Object();
+        window.contract = await new web3service.eth.Contract(daoLaunchABI, tokenContract);
         const transactionParameters = {
             to: tokenContract, // Required except during contract publications.
             from: window.ethereum.selectedAddress, // must match user's active address.
@@ -63,10 +65,12 @@ export default class DaoCreationService {
     }
 
     static async getDaoMetadata(tokenContract) {
-        const web3service = WalletService.getWet3Object();
-        window.contract = await new web3service.eth.Contract(DAOLAUNCH, tokenContract);
+        debugger;
+        const web3service = WalletService.getWeb3Object();
+        window.contract = await new web3service.eth.Contract(daoLaunchABI, tokenContract);
         //This will retun the latest DAO deployed by the user
-        const daoMetadata =  await window.contract.methods.getMetadata().call();
+        const daoMetadata =  await window.contract.methods.getMetadata().call({from: window.ethereum.selectedAddress});
+        return daoMetadata;
     };
 
 
