@@ -40,11 +40,11 @@ function App() {
       setauthorized(true)
     }
     */
-    
+
   }
 
 
-  const launchdoaEvent = async() => {
+  const launchdoaEvent = async () => {
     alert("DAO is Launching");
     debugger;
     console.log(input);
@@ -66,7 +66,7 @@ function App() {
   }
   const connectwallet = () => {
     return (
-      <button className="btn btn-primary" onClick={handleClick}>
+      <button className="btn btn-primary cbutton" onClick={handleClick}>
         CONNECT WALLET
       </button>
     )
@@ -104,8 +104,10 @@ function App() {
     }
   }
   return (
-    <div className="containe jumbotron">
-      {gethtml()}
+    <div className='relative'>
+      <div className="containe jumbotron absolute50">
+        {gethtml()}
+      </div>
     </div>
 
   );
