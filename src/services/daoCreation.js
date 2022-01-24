@@ -3,7 +3,8 @@ import daoLaunchABI from "./daoLaunchAbi";
 import web3 from "web3";
 import WalletService from "./wallet";
 
-let parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924";
+//let parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924"; // rinkeby
+let parentContract = "0x24Ef0857EAB70cf8842c6E9221b38260cac83BE1"; // matic
 
 export default class DaoCreationService {
     //Contract used to deploy the token contract
@@ -12,8 +13,8 @@ export default class DaoCreationService {
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
         const tokenAddress =  await window.contract.methods.getContract().call({from: window.ethereum.selectedAddress});
-        window.dao.tokenAddress = tokenAddress;
-        await this.mintToken(tokenAddress);
+        window.dao.tokenAddress = tokenAddress[tokenAddress.length - 1];
+        await this.mintToken(window.dao.tokenAddress);
     };
 
     static async deployDao(name, symbol, description, totalSupply) {
