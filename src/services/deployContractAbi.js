@@ -92,9 +92,9 @@ const deployContractABI = [
 		"name": "getContract",
 		"outputs": [
 			{
-				"internalType": "address",
+				"internalType": "address[]",
 				"name": "",
-				"type": "address"
+				"type": "address[]"
 			}
 		],
 		"stateMutability": "view",
