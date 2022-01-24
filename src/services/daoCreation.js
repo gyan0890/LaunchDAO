@@ -2,6 +2,8 @@ import deployContractABI from "./deployContractAbi";
 import daoLaunchABI from "./daoLaunchAbi";
 import web3 from "web3";
 import WalletService from "./wallet";
+import { useContext } from "react";
+import { AppContext } from "../states/appcontext";
 
 //let parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924"; // rinkeby
 let parentContract = "0x24Ef0857EAB70cf8842c6E9221b38260cac83BE1"; // matic
@@ -9,15 +11,15 @@ let parentContract = "0x24Ef0857EAB70cf8842c6E9221b38260cac83BE1"; // matic
 export default class DaoCreationService {
     //Contract used to deploy the token contract
 
-    static async getDaoAddress() {
+    static async getDaoAddress(cb) {
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
-        const tokenAddress =  await window.contract.methods.getContract().call({from: window.ethereum.selectedAddress});
+        const tokenAddress = await window.contract.methods.getContract().call({ from: window.ethereum.selectedAddress });
         window.dao.tokenAddress = tokenAddress[tokenAddress.length - 1];
-        await this.mintToken(window.dao.tokenAddress);
+        await this.mintToken(window.dao.tokenAddress, cb);
     };
 
-    static async deployDao(name, symbol, description, totalSupply) {
+    static async deployDao(name, symbol, description, totalSupply, cb) {
         debugger;
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
@@ -36,17 +38,17 @@ export default class DaoCreationService {
             // })
             const me = this;
             web3service.eth.sendTransaction(transactionParameters)
-            .once('sending', function(payload){ console.log(payload) })
-            .once('sent', function(payload){ console.log(payload) })
-            .once('transactionHash', function(hash){ console.log(hash) })
-            .once('receipt', function(receipt){ console.log(receipt) })
-            .on('confirmation', function(confNumber, receipt, latestBlockHash){ console.log(latestBlockHash) })
-            .on('error', function(error){ console.log(error) })
-            .then(async function(receipt){
-                alert("Receipt generated" + receipt);
-                await me.getDaoAddress();
-                debugger;
-            });
+                .once('sending', function (payload) { console.log(payload) })
+                .once('sent', function (payload) { console.log(payload) })
+                .once('transactionHash', function (hash) { console.log(hash) })
+                .once('receipt', function (receipt) { console.log(receipt) })
+                .on('confirmation', function (confNumber, receipt, latestBlockHash) { console.log(latestBlockHash) })
+                .on('error', function (error) { console.log(error) })
+                .then(async function (receipt) {
+                    alert("Receipt generated" + receipt);
+                    await me.getDaoAddress(cb);
+                    debugger;
+                });
             alert("Wohoo! Setting up your DAO for deployment now")
         } catch (error) {
             debugger;
@@ -54,8 +56,7 @@ export default class DaoCreationService {
 
     }
 
-    static async mintToken(tokenContract) {
-        debugger;
+    static async mintToken(tokenContract, cb) {
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(daoLaunchABI, tokenContract);
         const transactionParameters = {
@@ -71,6 +72,7 @@ export default class DaoCreationService {
                 method: "eth_sendTransaction",
                 params: [transactionParameters],
             });
+            cb();
             alert("Wohoo! Setting up your DAO for deployment now" + txHash)
         } catch (error) {
             debugger;
@@ -83,7 +85,7 @@ export default class DaoCreationService {
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(daoLaunchABI, tokenContract);
         //This will retun the latest DAO deployed by the user
-        const daoMetadata =  await window.contract.methods.getMetadata().call({from: window.ethereum.selectedAddress});
+        const daoMetadata = await window.contract.methods.getMetadata().call({ from: window.ethereum.selectedAddress });
         return daoMetadata;
     };
 
