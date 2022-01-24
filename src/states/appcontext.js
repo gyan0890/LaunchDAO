@@ -4,6 +4,7 @@ import { AppActions } from './actions';
 
 
 function reducer(state, action) {
+
     switch (action.type) {
         case AppActions.SETWALLET:
             return {

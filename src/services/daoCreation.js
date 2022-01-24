@@ -68,12 +68,20 @@ export default class DaoCreationService {
         };
 
         try {
-            const txHash = await window.ethereum.request({
-                method: "eth_sendTransaction",
-                params: [transactionParameters],
-            });
-            cb();
-            alert("Wohoo! Setting up your DAO for deployment now" + txHash)
+            const txHash = web3service.eth.sendTransaction(transactionParameters)
+            .once('sending', function (payload) { console.log(payload) })
+                .once('sent', function (payload) { console.log(payload) })
+                .once('transactionHash', function (hash) { console.log(hash) })
+                .once('receipt', function (receipt) { console.log(receipt) })
+                .on('confirmation', function (confNumber, receipt, latestBlockHash) { console.log(latestBlockHash) })
+                .on('error', function (error) { console.log(error) })
+                .then(async function (receipt) {
+                    console.log("minted");
+                    debugger;
+                    cb();
+                   
+                });
+            
         } catch (error) {
             debugger;
         }

@@ -13,7 +13,7 @@ import DaoCreationService from './services/daoCreation.js';
 function App() {
 
   const [state, dispatch] = useContext(AppContext);
-  debugger;
+//     debugger;
   const [wallet, setwallet] = useState(null)
   const [authorized, setauthorized] = useState(null);
   const [input, setInput] = useState('');
@@ -47,7 +47,7 @@ function App() {
 
   const launchdoaEvent = async () => {
     alert("DAO is Launching");
-    debugger;
+    
     console.log(input);
     const desc = input;
     const totalSupply = 10000;
@@ -55,17 +55,18 @@ function App() {
     const name = input;
     debugger;
     await DaoCreationService.deployDao(name, symbol, desc, totalSupply, callback);
-    debugger;
-    // await DaoCreationService.getDaoAddress();
+    // debugger;
+    // // await DaoCreationService.getDaoAddress();
     setDaoLaunched(true);
   }
 
   const callback = () => {
+ 
     const object = {
       type: AppActions.SETDAOENABLED,
       payload: true
     }
-    dispatch(state, object)
+    dispatch(object)
   }
 
   const launchDaoHtml = () => {
