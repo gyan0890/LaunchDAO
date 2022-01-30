@@ -9,8 +9,11 @@ export default class DaoCreationService {
     //Contract used to deploy the token contract
 
     static async getDaoAddress() {
+        debugger;
         const web3service = WalletService.getWeb3Object();
+        debugger;
         window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
+        debugger;
         const tokenAddress =  await window.contract.methods.getContract().call({from: window.ethereum.selectedAddress});
         window.dao.tokenAddress = tokenAddress;
         await this.mintToken(tokenAddress);

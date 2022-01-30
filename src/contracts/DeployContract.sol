@@ -13,7 +13,7 @@ contract DeployContract {
     }
     _contract[] Contracts;
     mapping(address => address) addressContractMap;
-
+        
     event Launch(address indexed, address indexed);
 
     constructor() {
