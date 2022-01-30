@@ -4,6 +4,7 @@ import { AppActions } from './actions';
 
 
 function reducer(state, action) {
+
     switch (action.type) {
         case AppActions.SETWALLET:
             return {
@@ -11,7 +12,11 @@ function reducer(state, action) {
                 wallet: action.payload
             }
             break;
-
+        case AppActions.SETDAOENABLED:
+            return {
+                ...state,
+                setdao: true
+            }
         default:
             return state;
     }

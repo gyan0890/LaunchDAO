@@ -13,9 +13,12 @@ import DaoCreationService from './services/daoCreation.js';
 function App() {
 
   const [state, dispatch] = useContext(AppContext);
+  //     debugger;
   const [wallet, setwallet] = useState(null)
   const [authorized, setauthorized] = useState(null);
-  const [input, setInput] = useState('');
+  const [ensName, setEnsName] = useState('');
+  const [symbol, setSymbol] = useState('');
+  const [description, setDescription] = useState('');
   const [daolaunched, setDaoLaunched] = useState(false);
   const handleClick = async () => {
     try {
@@ -33,30 +36,39 @@ function App() {
     //For testing ONLY
     setauthorized(true)
     //TESTING ONLY
-    window.dao.selectedaddress = input;
+    window.dao.selectedaddress = ensName;
     /** FOR TESTING - COMMENTING OUT 
      * const isvalidaddress = await WalletService.getENS(input);
     if (isvalidaddress == wallet.payload) {
       setauthorized(true)
     }
     */
-    
+
   }
 
 
-  const launchdoaEvent = async() => {
+  const launchdoaEvent = async () => {
     alert("DAO is Launching");
-    debugger;
-    console.log(input);
-    const desc = input;
+
+    console.log(ensName);
+    const desc = description;
     const totalSupply = 10000;
-    const symbol = input;
-    const name = input;
+    const symb = symbol;
+    const name = ensName;
     debugger;
-    await DaoCreationService.deployDao(name, symbol, desc, totalSupply);
-    debugger;
-    // await DaoCreationService.getDaoAddress();
+    await DaoCreationService.deployDao(name, symb, desc, totalSupply, callback);
+    // debugger;
+    // // await DaoCreationService.getDaoAddress();
     setDaoLaunched(true);
+  }
+
+  const callback = () => {
+
+    const object = {
+      type: AppActions.SETDAOENABLED,
+      payload: true
+    }
+    dispatch(object)
   }
 
   const launchDaoHtml = () => {
@@ -66,7 +78,7 @@ function App() {
   }
   const connectwallet = () => {
     return (
-      <button className="btn btn-primary" onClick={handleClick}>
+      <button className="btn btn-primary cbutton" onClick={handleClick}>
         CONNECT WALLET
       </button>
     )
@@ -75,7 +87,7 @@ function App() {
   const inputBoxwithSubmit = () => {
     return (
       <div>
-        <input value={input} onInput={e => setInput(e.target.value)} />
+        <input value={ensName} onInput={e => setEnsName(e.target.value)} />        
         <button className='btn btn-secondary' onClick={checkaddress} >Submit</button>
       </div>
     )
@@ -84,6 +96,8 @@ function App() {
   const launchdoa = () => {
     return (
       <div className='jumbtron'>
+        <textarea placeholder="Description" value={description} onInput={e => setDescription(e.target.value)} />
+        <input placeholder="Symbol" value={symbol} onInput={e => setSymbol(e.target.value)} />
         <button className='btn' onClick={launchdoaEvent}>Launch Dao</button>
       </div>
     )
@@ -99,13 +113,15 @@ function App() {
     if (wallet && authorized && !daolaunched) {
       return launchdoa();
     }
-    if (wallet && authorized && daolaunched) {
+    if (wallet && authorized && state.setdao) {
       return launchDaoHtml();
     }
   }
   return (
-    <div className="containe jumbotron">
-      {gethtml()}
+    <div className='relative'>
+      <div className="containe jumbotron absolute50">
+        {gethtml()}
+      </div>
     </div>
 
   );
