@@ -80,6 +80,13 @@ const daoLaunchABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [],
+		"name": "deactivate",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "address",
@@ -302,9 +309,19 @@ const daoLaunchABI = [
 				"type": "string"
 			},
 			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -349,6 +366,6 @@ const daoLaunchABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
 
 export default daoLaunchABI;

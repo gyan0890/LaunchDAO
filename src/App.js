@@ -7,7 +7,8 @@ import { AppContext, AppContextProvider } from './states/appcontext';
 import { AppActions } from './states/actions';
 import { compact } from 'lodash';
 import Web3 from "web3";
-import LaunchDaoPage from './Launchdao';
+import LaunchDaoPage from './pages/Launchdao';
+import AllDaoPage from './pages/AllDaos';
 import DaoCreationService from './services/daoCreation.js';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
   const [symbol, setSymbol] = useState('');
   const [description, setDescription] = useState('');
   const [daolaunched, setDaoLaunched] = useState(false);
+  const[launchAllDao, setLaunchAllDao] = useState(false);
   const handleClick = async () => {
     try {
       window.dao = {}
@@ -31,6 +33,13 @@ function App() {
       console.error(error)
     }
   }
+
+  const handleAllDaosButton = () => {
+    return (
+      <AllDaoPage></AllDaoPage>
+    )
+  }
+  
 
   const checkaddress = async () => {
     //For testing ONLY
@@ -44,6 +53,11 @@ function App() {
     }
     */
 
+  }
+
+  const setShowAllDaoPage = async () =>{
+    debugger;
+    setLaunchAllDao(true);
   }
 
 
@@ -73,22 +87,28 @@ function App() {
 
   const launchDaoHtml = () => {
     return (
-      <LaunchDaoPage></LaunchDaoPage>
+      <LaunchDaoPage key="defaultFlow"></LaunchDaoPage>
     )
   }
   const connectwallet = () => {
     return (
-      <button className="btn btn-primary cbutton" onClick={handleClick}>
-        CONNECT WALLET
-      </button>
+      <div>
+        <button className="btn btn-primary cbutton" onClick={handleClick}>
+          CONNECT WALLET
+        </button>
+        
+      </div>
     )
   }
 
   const inputBoxwithSubmit = () => {
     return (
       <div>
-        <input value={ensName} onInput={e => setEnsName(e.target.value)} />        
+        <input value={ensName} onInput={e => setEnsName(e.target.value)} />
         <button className='btn btn-secondary' onClick={checkaddress} >Submit</button>
+        <button className="btn btn-primary cbutton" onClick={setShowAllDaoPage}>
+          All DAOs
+        </button>
       </div>
     )
   }
@@ -104,18 +124,27 @@ function App() {
   }
 
   const gethtml = () => {
+    //debugger;
     if (!wallet) {
       return connectwallet();
+    }
+    //debugger;
+    if(wallet && launchAllDao){
+      //debugger;
+      return handleAllDaosButton();
     }
     if (wallet && !authorized) {
       return inputBoxwithSubmit()
     }
+    
     if (wallet && authorized && !daolaunched) {
       return launchdoa();
     }
     if (wallet && authorized && state.setdao) {
       return launchDaoHtml();
     }
+
+    
   }
   return (
     <div className='relative'>

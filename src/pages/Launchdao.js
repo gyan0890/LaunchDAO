@@ -7,6 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 class LaunchDaoPage extends React.Component {
     constructor(props) {
+        
         super(props);
         this.state = {
             error: null,
@@ -16,9 +17,6 @@ class LaunchDaoPage extends React.Component {
     }
 
     componentDidMount() {
-
-
-
         this.retryApiGetCall();
     }
 
@@ -27,6 +25,11 @@ class LaunchDaoPage extends React.Component {
 
         const lbl =  items.map(item => item.address);
         const dsBal = items.map(item => item.balance);
+
+        // if(!isLoaded){
+        //     console.log(this.props.contractAddress);
+        //     await this.retryApiGetCall();
+        // }
 
         const data = {
             labels: lbl,
@@ -62,6 +65,7 @@ class LaunchDaoPage extends React.Component {
         } else {
             return (
                 <div>
+                    <h2>Dao Details</h2>
                     <Table striped condensed hover>
                         <thead>
                             <tr>
@@ -90,7 +94,7 @@ class LaunchDaoPage extends React.Component {
 
                     <Doughnut data={data} />
 
-                    <button className='btn btn-secondary' onClick={this.retryApiGetCall} >Retry</button>
+                    <button className='btn btn-secondary' onClick={this.retryApiGetCall.bind(this)} >Retry</button>
                 </div>
 
             );
@@ -99,7 +103,30 @@ class LaunchDaoPage extends React.Component {
 
 
     retryApiGetCall() {
-        const url = "https://api.covalenthq.com/v1/80001/tokens/" + window.dao.tokenAddress + "/token_holders/?key=ckey_2f38a4ccc6874bd787a84037982";
+
+        let address = window.dao.tokenAddress;
+        if(this && this.props && this.props.contractAddress){
+            if(this.props.contractAddress=="none")
+            {
+                return;
+            }
+            address = this.props.contractAddress;
+        }
+        const url = "https://api.covalenthq.com/v1/80001/tokens/" + address + "/token_holders/?key=ckey_2f38a4ccc6874bd787a84037982";
+     
+        // try {
+        //     const response = await fetch(url);
+        //     const json = await response.json();
+        //     this.setState({
+        //         isLoaded: true,
+        //         items: json.data.items
+        //     });
+        //   } catch (error) {
+        //     this.setState({
+        //         isLoaded: true,
+        //         error
+        //     });
+        //   }
         const me = this;
         fetch(url)
             .then(res => res.json())

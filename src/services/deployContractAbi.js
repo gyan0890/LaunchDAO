@@ -1,5 +1,29 @@
 const deployContractABI = [
 	{
+		"inputs": [],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "Launch",
+		"type": "event"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "string",
@@ -32,30 +56,6 @@ const deployContractABI = [
 		],
 		"stateMutability": "nonpayable",
 		"type": "function"
-	},
-	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "Launch",
-		"type": "event"
 	},
 	{
 		"inputs": [],
@@ -100,6 +100,6 @@ const deployContractABI = [
 		"stateMutability": "view",
 		"type": "function"
 	}
-]
+];
 
 export default deployContractABI;
