@@ -11,19 +11,20 @@ import DaoCreationService from './services/daoCreation.js';
 function App() {
 
   const [state, dispatch] = useContext(AppContext);
-  //     debugger;
-  const [wallet, setwallet] = useState(null)
-  const [authorized, setauthorized] = useState(null);
+  const [wallet, setWallet] = useState(null)
+  const [authorized, setAuthorized] = useState(null);
   const [ensName, setEnsName] = useState('');
   const [symbol, setSymbol] = useState('');
   const [description, setDescription] = useState('');
-  const [daolaunched, setDaoLaunched] = useState(false);
-  const[launchAllDao, setLaunchAllDao] = useState(false);
+  const [daoLaunched, setDaoLaunched] = useState(false);
+  const [launchAllDao, setLaunchAllDao] = useState(false);
+
   const handleClick = async () => {
     try {
       window.dao = {}
       const data = await WalletService.connnectWalletState();
-      setwallet(data)
+      console.log(data)
+      setWallet(data)
       dispatch(data)
     } catch (error) {
       alert("Something went wrong")
@@ -33,32 +34,30 @@ function App() {
 
   const handleAllDaosButton = () => {
     return (
-      <AllDaoPage></AllDaoPage>
+      <AllDaoPage />
     )
   }
-  
 
-  const checkaddress = async () => {
+  const checkAddress = async () => {
     //For testing ONLY
-    setauthorized(true)
+    setAuthorized(true)
     //TESTING ONLY
     window.dao.selectedaddress = ensName;
     /** FOR TESTING - COMMENTING OUT 
      * const isvalidaddress = await WalletService.getENS(input);
     if (isvalidaddress == wallet.payload) {
-      setauthorized(true)
+      setAuthorized(true)
     }
     */
 
   }
 
   const setShowAllDaoPage = async () =>{
-    debugger;
     setLaunchAllDao(true);
   }
 
 
-  const launchdoaEvent = async () => {
+  const launchDaoEvent = async () => {
     alert("DAO is Launching");
 
     console.log(ensName);
@@ -84,58 +83,42 @@ function App() {
 
   const launchDaoHtml = () => {
     return (
-      <LaunchDaoPage key="defaultFlow"></LaunchDaoPage>
-    )
-  }
-  const connectwallet = () => {
-    return (
-      <div>
-        <button className="btn btn-primary cbutton" onClick={handleClick}>
-          CONNECT WALLET
-        </button>
-        
-      </div>
+      <LaunchDaoPage key="defaultFlow" />
     )
   }
 
-  const inputBoxwithSubmit = () => {
+  const inputBoxWithSubmit = () => {
     return (
       <div>
         <input value={ensName} onInput={e => setEnsName(e.target.value)} />
-        <button className='btn btn-secondary' onClick={checkaddress} >Submit</button>
-        <button className="btn btn-primary cbutton" onClick={setShowAllDaoPage}>
+        <button className='btn btn-secondary' onClick={checkAddress} >Submit</button>
+        <button className="btn btn-primary button" onClick={setShowAllDaoPage}>
           All DAOs
         </button>
       </div>
     )
   }
 
-  const launchdoa = () => {
+  const launchDao = () => {
     return (
-      <div className='jumbtron'>
+      <div className='jumbotron'>
         <textarea placeholder="Description" value={description} onInput={e => setDescription(e.target.value)} />
         <input placeholder="Symbol" value={symbol} onInput={e => setSymbol(e.target.value)} />
-        <button className='btn' onClick={launchdoaEvent}>Launch Dao</button>
+        <button className='btn' onClick={launchDaoEvent}>Launch Dao</button>
       </div>
     )
   }
 
-  const gethtml = () => {
-    //debugger;
-    if (!wallet) {
-      return connectwallet();
-    }
-    //debugger;
+  const getHtml = () => {
     if(wallet && launchAllDao){
-      //debugger;
       return handleAllDaosButton();
     }
     if (wallet && !authorized) {
-      return inputBoxwithSubmit()
+      return inputBoxWithSubmit()
     }
     
-    if (wallet && authorized && !daolaunched) {
-      return launchdoa();
+    if (wallet && authorized && !daoLaunched) {
+      return launchDao();
     }
     if (wallet && authorized && state.setdao) {
       return launchDaoHtml();
@@ -144,12 +127,14 @@ function App() {
     
   }
   return (
-    <div className='relative'>
-      <div className="containe jumbotron absolute50">
-        {gethtml()}
+      <div className="">
+        <div>
+          <button className="btn btn-primary button" onClick={handleClick}>
+            CONNECT WALLET
+          </button>
+        </div>
+        {getHtml()}
       </div>
-    </div>
-
   );
 }
 
