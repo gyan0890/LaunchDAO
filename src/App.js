@@ -1,5 +1,4 @@
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { useContext, useState } from 'react';
 import WalletService from './services/wallet';
 import { AppContext } from './states/appcontext';
@@ -20,10 +19,12 @@ function App() {
   const [launchAllDao, setLaunchAllDao] = useState(false);
 
   const handleClick = async () => {
+    // Insert into html
+    // <p>The metamask extension will now open. Please ensure your wallet is connected before proceeding.</p>
+
     try {
       window.dao = {}
       const data = await WalletService.connnectWalletState();
-      console.log(data)
       setWallet(data)
       dispatch(data)
     } catch (error) {
@@ -56,24 +57,18 @@ function App() {
     setLaunchAllDao(true);
   }
 
-
   const launchDaoEvent = async () => {
-    alert("DAO is Launching");
-
-    console.log(ensName);
     const desc = description;
     const totalSupply = 10000;
     const symb = symbol;
     const name = ensName;
     debugger;
     await DaoCreationService.deployDao(name, symb, desc, totalSupply, callback);
-    // debugger;
-    // // await DaoCreationService.getDaoAddress();
+    // await DaoCreationService.getDaoAddress();
     setDaoLaunched(true);
   }
 
   const callback = () => {
-
     const object = {
       type: AppActions.SETDAOENABLED,
       payload: true
@@ -84,18 +79,6 @@ function App() {
   const launchDaoHtml = () => {
     return (
       <LaunchDaoPage key="defaultFlow" />
-    )
-  }
-
-  const inputBoxWithSubmit = () => {
-    return (
-      <div>
-        <input value={ensName} onInput={e => setEnsName(e.target.value)} />
-        <button className='btn btn-secondary' onClick={checkAddress} >Submit</button>
-        <button className="btn btn-primary button" onClick={setShowAllDaoPage}>
-          All DAOs
-        </button>
-      </div>
     )
   }
 
@@ -113,27 +96,41 @@ function App() {
     if(wallet && launchAllDao){
       return handleAllDaosButton();
     }
-    if (wallet && !authorized) {
-      return inputBoxWithSubmit()
-    }
-    
     if (wallet && authorized && !daoLaunched) {
       return launchDao();
     }
     if (wallet && authorized && state.setdao) {
       return launchDaoHtml();
     }
-
-    
   }
+
   return (
       <div className="">
-        <div>
+        {!wallet &&
+            <>
+        <h1>Launch DAO</h1>
+          <p>
+          I'm baby wayfarers iPhone dolore authentic, banh mi vegan et skateboard helvetica commodo. Salvia cold-pressed magna gochujang umami. Stumptown culpa actually do man braid cardigan ut flannel plaid squid humblebrag ex. Hoodie small batch qui occaecat chicharrones retro DIY jianbing seitan echo park kickstarter artisan exercitation.
+
+          Thundercats franzen aliqua, in labore master cleanse vegan retro cloud bread incididunt. Waistcoat yr tempor lyft single-origin coffee id. Cornhole nulla wayfarers poutine. Master cleanse single-origin coffee paleo leggings, neutra DIY ad narwhal dolor fixie tempor semiotics. Shaman helvetica non hell of.
+          </p>
           <button className="btn btn-primary button" onClick={handleClick}>
-            CONNECT WALLET
+          CONNECT WALLET
           </button>
-        </div>
-        {getHtml()}
+              <button onClick={setShowAllDaoPage}>
+                Show All DAOs
+              </button>
+
+            </>}
+
+        {wallet && !authorized &&
+        <div>
+
+          <input value={ensName} onInput={e => setEnsName(e.target.value)} />
+          <button className='btn btn-secondary' onClick={checkAddress} >Submit</button>
+
+        </div>}
+
       </div>
   );
 }

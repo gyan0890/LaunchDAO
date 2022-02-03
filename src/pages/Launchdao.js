@@ -1,7 +1,7 @@
 import React from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
-import {Table} from "react-bootstrap";
+import Table from "react-bootstrap/Table";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -76,16 +76,16 @@ class LaunchDaoPage extends React.Component {
                         </thead>
                         <tbody>
                             {
-                                
-                                items.map(item => 
+
+                                items.map(item =>
                                     (
-                                    
+
                                         <tr key={item.block_height}>
                                             <td></td>
                                             <td>{item.address}</td>
                                             <td>{item.balance}</td>
                                         </tr>
-    
+
                                     )
                                 )
                             }
@@ -151,11 +151,5 @@ class LaunchDaoPage extends React.Component {
             )
     }
 }
-
-// function LaunchDaoPage() {
-//     return (<h1>
-//         this the page for launch dao
-//     </h1>);
-// }
 
 export default LaunchDaoPage;

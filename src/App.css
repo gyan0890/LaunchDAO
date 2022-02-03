@@ -24,33 +24,11 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .relative{
   position: relative;
 }
 .absolute50{
   position: absolute;
-  position: absolute;
   top: 13em;
   left: 33em;
-}
-
-.cbutton{
-  box-shadow: 7px 0px 337px 24px rgba(184,87,87,0.75);
--webkit-box-shadow: 7px 0px 337px 24px rgba(184,87,87,0.75);
--moz-box-shadow: 7px 0px 337px 24px rgba(184,87,87,0.75);
-height: 6em;
-    width: 17em;
 }
