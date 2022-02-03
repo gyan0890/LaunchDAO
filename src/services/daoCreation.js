@@ -1,10 +1,6 @@
 import deployContractABI from "./deployContractAbi";
 import daoLaunchABI from "./daoLaunchAbi";
-import web3 from "web3";
-import { ethers } from "ethers";
 import WalletService from "./wallet";
-import { useContext } from "react";
-import { AppContext } from "../states/appcontext";
 
 //let parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924"; // rinkeby
 //let parentContract = "0x24Ef0857EAB70cf8842c6E9221b38260cac83BE1"; // matic , old one without symbol

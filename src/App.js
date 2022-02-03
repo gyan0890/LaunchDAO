@@ -1,12 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useContext, useState } from 'react';
 import WalletService from './services/wallet';
-import { AppContext, AppContextProvider } from './states/appcontext';
+import { AppContext } from './states/appcontext';
 import { AppActions } from './states/actions';
-import { compact } from 'lodash';
-import Web3 from "web3";
 import LaunchDaoPage from './pages/Launchdao';
 import AllDaoPage from './pages/AllDaos';
 import DaoCreationService from './services/daoCreation.js';

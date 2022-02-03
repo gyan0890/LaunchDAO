@@ -106,7 +106,7 @@ class LaunchDaoPage extends React.Component {
 
         let address = window.dao.tokenAddress;
         if(this && this.props && this.props.contractAddress){
-            if(this.props.contractAddress=="none")
+            if(this.props.contractAddress==="none")
             {
                 return;
             }

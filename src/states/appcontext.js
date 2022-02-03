@@ -11,7 +11,6 @@ function reducer(state, action) {
                 ...state,
                 wallet: action.payload
             }
-            break;
         case AppActions.SETDAOENABLED:
             return {
                 ...state,

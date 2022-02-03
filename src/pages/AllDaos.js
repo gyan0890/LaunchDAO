@@ -71,7 +71,7 @@ class AllDaoPage extends React.Component {
 
                                     <tr key={item.dao.id}>
                                         <td></td>
-                                        <td><a onClick={gotoContractData}>{item.dao.contractAddress}</a></td>
+                                        <td><button onClick={gotoContractData}>{item.dao.contractAddress}</button></td>
                                         <td>{item.meta[0]}</td>
                                         <td>{item.dao.owner}</td>
                                         <td>{item.meta[1]}</td>
