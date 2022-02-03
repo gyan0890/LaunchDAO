@@ -1,4 +1,4 @@
 export const AppActions = {
-    SETWALLET: "setwallet",
-    SETDAOENABLED: "setdao"
-}
+  SETWALLET: "setwallet",
+  SETDAOENABLED: "setdao",
+};

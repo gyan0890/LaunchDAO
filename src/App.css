@@ -24,10 +24,10 @@
   color: white;
 }
 
-.relative{
+.relative {
   position: relative;
 }
-.absolute50{
+.absolute50 {
   position: absolute;
   top: 13em;
   left: 33em;
