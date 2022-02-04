@@ -41,12 +41,11 @@ function App() {
     setAuthorized(true);
     //TESTING ONLY
     window.dao.selectedaddress = ensName;
-    /** FOR TESTING - COMMENTING OUT 
-     * const isvalidaddress = await WalletService.getENS(input);
-    if (isvalidaddress == wallet.payload) {
-      setAuthorized(true)
-    }
-    */
+    // FOR TESTING - COMMENTING OUT
+    //  const isvalidaddress = await WalletService.getENS(input);
+    // if (isvalidaddress == wallet.payload) {
+    //   setAuthorized(true)
+    // }
   };
 
   const setShowAllDaoPage = async () => {
@@ -58,7 +57,6 @@ function App() {
     const totalSupply = 10000;
     const symb = symbol;
     const name = ensName;
-    debugger;
     await DaoCreationService.deployDao(name, symb, desc, totalSupply, callback);
     // await DaoCreationService.getDaoAddress();
     setDaoLaunched(true);

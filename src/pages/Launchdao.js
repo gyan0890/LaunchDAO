@@ -128,7 +128,6 @@ class LaunchDaoPage extends React.Component {
       .then((res) => res.json())
       .then(
         (result) => {
-          debugger;
           me.setState({
             isLoaded: true,
             items: result.data.items,
@@ -138,7 +137,6 @@ class LaunchDaoPage extends React.Component {
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
         (error) => {
-          debugger;
           me.setState({
             isLoaded: true,
             error,

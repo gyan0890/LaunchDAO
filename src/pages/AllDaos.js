@@ -16,7 +16,6 @@ class AllDaoPage extends React.Component {
   }
 
   componentDidMount() {
-    debugger;
     DaoCreationService.getAllDaosWithMetadata().then((d) =>
       this.setState({
         items: d,
@@ -31,7 +30,6 @@ class AllDaoPage extends React.Component {
     const { error, isLoaded, items, selectedContract } = this.state;
 
     const gotoContractData = (e) => {
-      debugger;
       this.setState({ selectedContract: e.target.innerText });
     };
 
