@@ -75,23 +75,7 @@ function App() {
   };
 
   const launchDao = () => {
-    return (
-      <div className="jumbotron">
-        <textarea
-          placeholder="Description"
-          value={description}
-          onInput={(e) => setDescription(e.target.value)}
-        />
-        <input
-          placeholder="Symbol"
-          value={symbol}
-          onInput={(e) => setSymbol(e.target.value)}
-        />
-        <button className="btn" onClick={launchDaoEvent}>
-          Launch Dao
-        </button>
-      </div>
-    );
+    return <div className="jumbotron"></div>;
   };
 
   const getHtml = () => {
@@ -107,7 +91,7 @@ function App() {
   };
 
   return (
-    <div className="">
+    <div className="container">
       {!wallet && (
         <>
           <h1>Launch DAO</h1>
@@ -117,25 +101,52 @@ function App() {
             umami. Stumptown culpa actually do man braid cardigan ut flannel
             plaid squid humblebrag ex. Hoodie small batch qui occaecat
             chicharrones retro DIY jianbing seitan echo park kickstarter artisan
-            exercitation. Thundercats franzen aliqua, in labore master cleanse
-            vegan retro cloud bread incididunt. Waistcoat yr tempor lyft
-            single-origin coffee id. Cornhole nulla wayfarers poutine. Master
-            cleanse single-origin coffee paleo leggings, neutra DIY ad narwhal
-            dolor fixie tempor semiotics. Shaman helvetica non hell of.
+            exercitation.
           </p>
-          <button className="btn btn-primary button" onClick={handleClick}>
-            CONNECT WALLET
-          </button>
-          <button onClick={setShowAllDaoPage}>Show All DAOs</button>
+          <p>
+            Thundercats franzen aliqua, in labore master cleanse vegan retro
+            cloud bread incididunt. Waistcoat yr tempor lyft single-origin
+            coffee id. Cornhole nulla wayfarers poutine. Master cleanse
+            single-origin coffee paleo leggings, neutra DIY ad narwhal dolor
+            fixie tempor semiotics. Shaman helvetica non hell of.
+          </p>
+            <button className="button connect-wallet" onClick={handleClick}>
+              Connect Wallet
+            </button>
+            <button
+              className="button show-all-daos"
+              onClick={setShowAllDaoPage}
+            >
+              Show All DAOs
+            </button>
         </>
       )}
 
-      {wallet && !authorized && (
+      {wallet && (
         <div>
           <input value={ensName} onInput={(e) => setEnsName(e.target.value)} />
           <button className="btn btn-secondary" onClick={checkAddress}>
             Submit
           </button>
+          {
+            //!authorized and disabled
+            //  authorized and available
+            <>
+              <textarea
+                placeholder="Description"
+                value={description}
+                onInput={(e) => setDescription(e.target.value)}
+              />
+              <input
+                placeholder="Symbol"
+                value={symbol}
+                onInput={(e) => setSymbol(e.target.value)}
+              />
+              <button className="btn" onClick={launchDaoEvent}>
+                Launch Dao
+              </button>
+            </>
+          }
         </div>
       )}
     </div>
