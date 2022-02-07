@@ -110,44 +110,57 @@ function App() {
             single-origin coffee paleo leggings, neutra DIY ad narwhal dolor
             fixie tempor semiotics. Shaman helvetica non hell of.
           </p>
-            <button className="button connect-wallet" onClick={handleClick}>
-              Connect Wallet
-            </button>
-            <button
-              className="button show-all-daos"
-              onClick={setShowAllDaoPage}
-            >
-              Show All DAOs
-            </button>
+          <button className="button connect-wallet" onClick={handleClick}>
+            Connect Wallet
+          </button>
+          <button className="button show-all-daos" onClick={setShowAllDaoPage}>
+            Show All DAOs
+          </button>
         </>
       )}
 
       {wallet && (
-        <div>
-          <input value={ensName} onInput={(e) => setEnsName(e.target.value)} />
-          <button className="btn btn-secondary" onClick={checkAddress}>
-            Submit
-          </button>
+        <>
+          <label>Enter ENS name with which you wish to start the DAO</label>
+          <div>
+            <input
+              className="input ens"
+              value={ensName}
+              onInput={(e) => setEnsName(e.target.value)}
+            />
+            {!authorized && (
+              <button className="button ens" onClick={checkAddress}>
+                Submit
+              </button>
+            )}
+            {authorized && <span className="verified">✅ Verified!</span>
+
+            }
+          </div>
           {
             //!authorized and disabled
             //  authorized and available
             <>
+              <label>What will your DAO do?</label>
               <textarea
+                  className="input description"
                 placeholder="Description"
                 value={description}
                 onInput={(e) => setDescription(e.target.value)}
               />
+              <label>What is the symbol for the token of your DAO?</label>
               <input
-                placeholder="Symbol"
+                  className="input symbol"
+                placeholder="ex: TSC"
                 value={symbol}
                 onInput={(e) => setSymbol(e.target.value)}
               />
-              <button className="btn" onClick={launchDaoEvent}>
+              <button className="button launch-dao" onClick={launchDaoEvent}>
                 Launch Dao
               </button>
             </>
           }
-        </div>
+        </>
       )}
     </div>
   );

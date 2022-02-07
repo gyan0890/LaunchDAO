@@ -45,7 +45,7 @@ export default class DaoCreationService {
                     alert("Receipt generated" + receipt);
                     await me.getDaoAddress(cb);
                 });
-            alert("Wohoo! Setting up your DAO for deployment now")
+        // TODO: Add overlay with loader
         } catch (error) {
         }
 
