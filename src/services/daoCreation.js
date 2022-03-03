@@ -1,10 +1,6 @@
 import deployContractABI from "./deployContractAbi";
 import daoLaunchABI from "./daoLaunchAbi";
-import web3 from "web3";
-import { ethers } from "ethers";
 import WalletService from "./wallet";
-import { useContext } from "react";
-import { AppContext } from "../states/appcontext";
 
 //let parentContract = "0xd12Ed91375eBc57D3c8A7C8992008d580C64e924"; // rinkeby
 //let parentContract = "0x24Ef0857EAB70cf8842c6E9221b38260cac83BE1"; // matic , old one without symbol
@@ -22,7 +18,6 @@ export default class DaoCreationService {
     };
 
     static async deployDao(name, symbol, description, totalSupply, cb) {
-        debugger;
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(deployContractABI, parentContract);
         const transactionParameters = {
@@ -49,11 +44,9 @@ export default class DaoCreationService {
                 .then(async function (receipt) {
                     alert("Receipt generated" + receipt);
                     await me.getDaoAddress(cb);
-                    debugger;
                 });
-            alert("Wohoo! Setting up your DAO for deployment now")
+        // TODO: Add overlay with loader
         } catch (error) {
-            debugger;
         }
 
     }
@@ -79,19 +72,16 @@ export default class DaoCreationService {
                 .on('error', function (error) { console.log(error) })
                 .then(async function (receipt) {
                     console.log("minted");
-                    debugger;
                     cb();
 
                 });
 
         } catch (error) {
-            debugger;
         }
 
     }
 
     static async getDaoMetadata(tokenContract) {
-        //debugger;
         const web3service = WalletService.getWeb3Object();
         window.contract = await new web3service.eth.Contract(daoLaunchABI, tokenContract);
         //This will retun the latest DAO deployed by the user
@@ -110,7 +100,6 @@ export default class DaoCreationService {
     };
 
     static async getAllDaosWithMetadata() {
-        //debugger;
         let allDao = await this.getAllDaos();
 
         let data = [];

@@ -24,33 +24,96 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.relative{
+.relative {
   position: relative;
 }
-.absolute50{
-  position: absolute;
+.absolute50 {
   position: absolute;
   top: 13em;
   left: 33em;
 }
 
-.cbutton{
-  box-shadow: 7px 0px 337px 24px rgba(184,87,87,0.75);
--webkit-box-shadow: 7px 0px 337px 24px rgba(184,87,87,0.75);
--moz-box-shadow: 7px 0px 337px 24px rgba(184,87,87,0.75);
-height: 6em;
-    width: 17em;
+body {
+  height: 100vh;
+  margin: 0;
+}
+
+#root {
+  min-height: 100%;
+  margin: 0;
+  background-color: #f4a5ae;
+}
+
+.container {
+  padding: 2rem 4rem;
+  height: calc(100% - 8rem);
+
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 6rem;
+}
+
+.connect-wallet {
+  display: block;
+  height: 5rem;
+  width: 16rem;
+  margin: 1rem 0;
+
+  align-self: center;
+  font-size: 1.2rem;
+  background-color: #e4ffe1;
+}
+
+.show-all-daos {
+  display: block;
+
+  align-self: center;
+  background: none;
+  text-decoration: underline;
+}
+
+input, textarea, button {
+  margin-bottom: 2rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.input.ens {
+  width: 18rem;
+}
+
+.button.ens {
+  display: inline;
+  width: 5rem;
+  margin-left: 2rem;
+  background: none;
+  border: 1px solid black;
+}
+
+.verified {
+  margin-left: 2rem;
+}
+
+.input.symbol {
+  width: 8rem;
+}
+
+.input.description {
+  width: 28rem;
+  height: 6rem;
+}
+
+.launch-dao {
+  height: 3rem;
+  width: 12rem;
+
+  font-size: 1.2rem;
+  background-color: #e4ffe1;
 }
