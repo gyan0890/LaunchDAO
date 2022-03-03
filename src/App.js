@@ -8,6 +8,7 @@ import AllDaoPage from "./pages/AllDaos";
 import DaoCreationService from "./services/daoCreation.js";
 
 function App() {
+
   const [state, dispatch] = useContext(AppContext);
   const [wallet, setWallet] = useState(null);
   const [authorized, setAuthorized] = useState(null);
@@ -49,7 +50,9 @@ function App() {
   };
 
   const setShowAllDaoPage = async () => {
+    debugger;
     setLaunchAllDao(true);
+    console.log(launchAllDao);
   };
 
   const launchDaoEvent = async () => {
@@ -78,21 +81,27 @@ function App() {
     return <div className="jumbotron"></div>;
   };
 
-  const getHtml = () => {
-    if (wallet && launchAllDao) {
-      return handleAllDaosButton();
-    }
-    if (wallet && authorized && !daoLaunched) {
-      return launchDao();
-    }
-    if (wallet && authorized && state.setdao) {
-      return launchDaoHtml();
-    }
-  };
+  // const getHtml = () => {
+  //   if (wallet && launchAllDao) {
+  //     return handleAllDaosButton();
+  //   }
+  //   if (wallet && authorized && !daoLaunched) {
+  //     return launchDao();
+  //   }
+  //   if (wallet && authorized && state.setdao) {
+  //     return launchDaoHtml();
+  //   }
+  // };
 
   return (
     <div className="container">
-      {!wallet && (
+
+      {launchAllDao && (
+
+        <><div><AllDaoPage /></div></>
+
+      )}
+      {!wallet && !launchAllDao && (
         <>
           <h1>Launch DAO</h1>
           <p>
@@ -119,6 +128,8 @@ function App() {
         </>
       )}
 
+
+
       {wallet && (
         <>
           <label>Enter ENS name with which you wish to start the DAO</label>
@@ -143,14 +154,14 @@ function App() {
             <>
               <label>What will your DAO do?</label>
               <textarea
-                  className="input description"
+                className="input description"
                 placeholder="Description"
                 value={description}
                 onInput={(e) => setDescription(e.target.value)}
               />
               <label>What is the symbol for the token of your DAO?</label>
               <input
-                  className="input symbol"
+                className="input symbol"
                 placeholder="ex: TSC"
                 value={symbol}
                 onInput={(e) => setSymbol(e.target.value)}
@@ -162,6 +173,8 @@ function App() {
           }
         </>
       )}
+
+
     </div>
   );
 }

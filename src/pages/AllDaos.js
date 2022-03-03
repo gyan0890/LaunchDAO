@@ -71,10 +71,10 @@ class AllDaoPage extends React.Component {
             </tbody>
           </Table>
 
-          <LaunchDaoPage
+          {/* <LaunchDaoPage
             key={selectedContract}
             contractAddress={selectedContract}
-          />
+          /> */}
         </div>
       );
     }
